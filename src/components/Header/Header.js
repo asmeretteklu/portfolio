@@ -18,30 +18,34 @@ const Header = () => {
     { id: 'certificates', label: 'Certificates', icon: '📜' },
     { id: 'contact', label: 'Contact', icon: '📞' }
   ];
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-      
-      const scrollPosition = window.scrollY + 100;
-      
-      navItems.forEach(item => {
-        const element = document.getElementById(item.id);
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetBottom = offsetTop + element.offsetHeight;
-          
-          if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
-            setActiveNav(item.id);
-          }
+useEffect(() => {
+  const handleScroll = () => {
+    setIsScrolled(window.scrollY > 50);
+    
+    const scrollPosition = window.scrollY + 100;
+    
+    // Define navItems inside useEffect to avoid dependency
+    const items = [
+      { id: 'home' }, { id: 'about' }, { id: 'projects' },
+      { id: 'skills' }, { id: 'certificates' }, { id: 'contact' }
+    ];
+    
+    items.forEach(item => {
+      const element = document.getElementById(item.id);
+      if (element) {
+        const offsetTop = element.offsetTop;
+        const offsetBottom = offsetTop + element.offsetHeight;
+        
+        if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+          setActiveNav(item.id);
         }
-      });
-    };
+      }
+    });
+  };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
+  window.addEventListener('scroll', handleScroll);
+  return () => window.removeEventListener('scroll', handleScroll);
+}, []); // Empty dependency array
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };

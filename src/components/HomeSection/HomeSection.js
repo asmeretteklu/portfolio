@@ -5,8 +5,8 @@ import './HomeSection.css';
 import AsmeretPhoto from '../../assets/images/asmeret.jpg';
 
 const HomeSection = () => {
-  const [isMobile, setIsMobile] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => {

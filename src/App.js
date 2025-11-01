@@ -28,7 +28,7 @@ import BackToTop from './components/BackToTop/BackToTop';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [isRainActive, setIsRainActive] = useState(false);
+  const [isRainActive] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
 
   // FIX FOR SCROLLING BLINKING
