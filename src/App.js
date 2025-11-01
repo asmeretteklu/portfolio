@@ -29,7 +29,6 @@ import BackToTop from './components/BackToTop/BackToTop';
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isRainActive] = useState(false);
-  const [isScrolling, setIsScrolling] = useState(false);
 
   // FIX FOR SCROLLING BLINKING
   useEffect(() => {
@@ -45,25 +44,6 @@ function App() {
       document.body.style.transform = '';
       document.body.style.webkitTransform = '';
     };
-  }, []);
-
-  // SCROLL DETECTION FOR PERFORMANCE
-  useEffect(() => {
-    let scrollTimer;
-    
-    const handleScroll = () => {
-      setIsScrolling(true);
-      document.body.classList.add('scrolling');
-      
-      clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(() => {
-        setIsScrolling(false);
-        document.body.classList.remove('scrolling');
-      }, 100);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Initialize theme and handle loading
