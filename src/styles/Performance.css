@@ -1,0 +1,56 @@
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Critical for iOS */
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  /* Force GPU layers */
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000;
+  -webkit-perspective: 1000;
+  /* Prevent elastic scroll */
+  overscroll-behavior-y: none;
+  /* Fix for mobile */
+  -webkit-tap-highlight-color: transparent;
+  /* Improve scrolling */
+  overflow-x: hidden !important;
+}
+
+/* Fix for all sections */
+section {
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
+}
+
+/* Fix for particle canvas */
+canvas {
+  display: block;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
+/* Critical: Fix for Framer Motion */
+motion.div, motion.section, motion.article {
+  transform: translate3d(0, 0, 0) !important;
+  -webkit-transform: translate3d(0, 0, 0) !important;
+}
+
+/* Disable animations during scroll */
+.scrolling * {
+  animation-play-state: paused !important;
+  transition: none !important;
+}

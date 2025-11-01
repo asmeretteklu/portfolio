@@ -1,0 +1,25 @@
+.visitor-counter {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  padding: 10px 15px;
+  border-radius: 25px;
+  border: 1px solid var(--border-color);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.counter-icon {
+  font-size: 1.1rem;
+}
+
+.counter-number {
+  font-weight: 600;
+  color: var(--text-primary);
+}
