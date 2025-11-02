@@ -20,13 +20,49 @@ const AboutSection = () => {
     passion: "Building AI-powered solutions for local challenges"
   };
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
     <section id="about" className="about-section">
       <div className="about-container">
         <motion.div 
           className="about-header"
           initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+         viewport={{ once: true, margin: "-100px", threshold: 0.1 }}
           transition={{ duration: 0.8 }}
         >
           <h1>My <span className="gradient-text">Journey</span></h1>
@@ -39,13 +75,22 @@ const AboutSection = () => {
           <motion.div 
             className="about-left"
             initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="profile-card">
-              {/* UPDATED PHOTO SECTION */}
+            <motion.div 
+              className="profile-card"
+              variants={cardVariants}
+              whileHover={{ y: -5 }}
+            >
+              {/* FIXED PHOTO SECTION */}
               <div className="profile-photo">
-                <div className="actual-profile-photo">
+                <motion.div 
+                  className="actual-profile-photo"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
                   <img 
                     src="/images/asmeret-photo.jpg"
                     alt="Asmeret Teklu - Software Engineer"
@@ -53,51 +98,51 @@ const AboutSection = () => {
                     onError={(e) => {
                       console.log('Photo not available, showing placeholder');
                       e.target.style.display = 'none';
-                      const placeholder = e.target.nextSibling;
+                      const placeholder = document.querySelector('.photo-placeholder');
                       if (placeholder) placeholder.style.display = 'flex';
                     }}
                   />
                   <div className="photo-placeholder">
                     AT
                   </div>
-                </div>
-                <div className="photo-badge">
+                </motion.div>
+                <motion.div 
+                  className="photo-badge"
+                  whileHover={{ scale: 1.1 }}
+                >
                   <span className="badge-dot"></span>
                   Open to Opportunities
-                </div>
+                </motion.div>
               </div>
               
-              <div className="quick-info">
+              <motion.div 
+                className="quick-info"
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-20px" }}
+              >
                 <h3>Quick Facts</h3>
-                <div className="info-item">
-                  <span className="info-label">Education</span>
-                  <span className="info-value">{personalInfo.education}</span>
-                </div>
-                <div className="info-item">
-                  <span className="info-label">College</span>
-                  <span className="info-value">{personalInfo.institution}</span>
-                </div>
-                <div className="info-item">
-                  <span className="info-label">Current Focus</span>
-                  <span className="info-value">{personalInfo.currentFocus}</span>
-                </div>
-                <div className="info-item">
-                  <span className="info-label">Learning Path</span>
-                  <span className="info-value">{personalInfo.certificate}</span>
-                </div>
-                <div className="info-item">
-                  <span className="info-label">Languages</span>
-                  <span className="info-value">{personalInfo.languages}</span>
-                </div>
-                <div className="info-item">
-                  <span className="info-label">Based In</span>
-                  <span className="info-value">{personalInfo.location}</span>
-                </div>
-                <div className="info-item">
-                  <span className="info-label">Passion</span>
-                  <span className="info-value">{personalInfo.passion}</span>
-                </div>
-              </div>
+                {[
+                  { label: "Education", value: personalInfo.education },
+                  { label: "College", value: personalInfo.institution },
+                  { label: "Current Focus", value: personalInfo.currentFocus },
+                  { label: "Learning Path", value: personalInfo.certificate },
+                  { label: "Languages", value: personalInfo.languages },
+                  { label: "Based In", value: personalInfo.location },
+                  { label: "Passion", value: personalInfo.passion }
+                ].map((info, index) => (
+                  <motion.div 
+                    key={index}
+                    className="info-item"
+                    variants={itemVariants}
+                    whileHover={{ x: 5 }}
+                  >
+                    <span className="info-label">{info.label}</span>
+                    <span className="info-value">{info.value}</span>
+                  </motion.div>
+                ))}
+              </motion.div>
 
               <div className="contact-cta">
                 <motion.button 
@@ -109,17 +154,28 @@ const AboutSection = () => {
                   Let's Build Something Amazing
                 </motion.button>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
 
           <motion.div 
             className="about-right"
             initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <div className="about-sections">
-              <div className="about-section-item">
+            <motion.div 
+              className="about-sections"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-30px" }}
+            >
+              <motion.div 
+                className="about-section-item"
+                variants={itemVariants}
+                whileHover={{ y: -3 }}
+              >
                 <h3>My Story</h3>
                 <p>
                   Hey! I'm <strong>Asmeret Teklu</strong>, a passionate Software Engineering graduate 
@@ -141,156 +197,181 @@ const AboutSection = () => {
                   I combine my technical skills with <strong>digital marketing strategies</strong>—SEO, 
                   content planning, and user engagement—to build web experiences that convert and connect.
                 </p>
-              </div>
+              </motion.div>
 
-              <div className="about-section-item">
+              <motion.div 
+                className="about-section-item"
+                variants={itemVariants}
+                whileHover={{ y: -3 }}
+              >
                 <h3>My Learning Path</h3>
                 <div className="journey-cards">
-                  <div className="journey-card">
-                    <div className="journey-icon">💻</div>
-                    <div className="journey-content">
-                      <h4>Software Engineering Degree</h4>
-                      <p>Graduated 2024 with hands-on experience in modern web technologies, database design, and software architecture. Built several projects that solved real college challenges.</p>
-                    </div>
-                  </div>
-                  <div className="journey-card">
-                    <div className="journey-icon">🚀</div>
-                    <div className="journey-content">
-                      <h4>FreeCodeCamp Journey</h4>
-                      <p>Currently mastering the MERN stack through project-based learning. Building responsive web applications while following industry best practices and clean code principles.</p>
-                    </div>
-                  </div>
-                  <div className="journey-card">
-                    <div className="journey-icon">🌍</div>
-                    <div className="journey-content">
-                      <h4>Global Mindset</h4>
-                      <p>Professional English proficiency enables me to collaborate internationally while bringing unique Ethiopian perspectives to global tech conversations and solutions.</p>
-                    </div>
-                  </div>
+                  {[
+                    {
+                      icon: "💻",
+                      title: "Software Engineering Degree",
+                      content: "Graduated 2024 with hands-on experience in modern web technologies, database design, and software architecture. Built several projects that solved real college challenges."
+                    },
+                    {
+                      icon: "🚀",
+                      title: "FreeCodeCamp Journey",
+                      content: "Currently mastering the MERN stack through project-based learning. Building responsive web applications while following industry best practices and clean code principles."
+                    },
+                    {
+                      icon: "🌍",
+                      title: "Global Mindset",
+                      content: "Professional English proficiency enables me to collaborate internationally while bringing unique Ethiopian perspectives to global tech conversations and solutions."
+                    }
+                  ].map((journey, index) => (
+                    <motion.div 
+                      key={index}
+                      className="journey-card"
+                      whileHover={{ scale: 1.02, y: -5 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <motion.div 
+                        className="journey-icon"
+                        whileHover={{ rotate: 360 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        {journey.icon}
+                      </motion.div>
+                      <div className="journey-content">
+                        <h4>{journey.title}</h4>
+                        <p>{journey.content}</p>
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="about-section-item">
+              <motion.div 
+                className="about-section-item"
+                variants={itemVariants}
+                whileHover={{ y: -3 }}
+              >
                 <h3>What I Work With</h3>
                 <div className="expertise-grid">
-                  <div className="expertise-category">
-                    <h4>Frontend Development</h4>
-                    <div className="skill-items">
-                      <span className="skill-item">React.js</span>
-                      <span className="skill-item">JavaScript (ES6+)</span>
-                      <span className="skill-item">HTML5 & CSS3</span>
-                      <span className="skill-item">Responsive Design</span>
-                      <span className="skill-item">Framer Motion</span>
-                    </div>
-                  </div>
-                  <div className="expertise-category">
-                    <h4>Backend & Databases</h4>
-                    <div className="skill-items">
-                      <span className="skill-item">Node.js</span>
-                      <span className="skill-item">Express.js</span>
-                      <span className="skill-item">MongoDB</span>
-                      <span className="skill-item">RESTful APIs</span>
-                      <span className="skill-item">Git & GitHub</span>
-                    </div>
-                  </div>
-                  <div className="expertise-category">
-                    <h4>Digital Marketing</h4>
-                    <div className="skill-items">
-                      <span className="skill-item">SEO Optimization</span>
-                      <span className="skill-item">Content Strategy</span>
-                      <span className="skill-item">Keyword Research</span>
-                      <span className="skill-item">Social Media Campaigns</span>
-                    </div>
-                  </div>
-                  <div className="expertise-category">
-                    <h4>Currently Learning</h4>
-                    <div className="skill-items">
-                      <span className="skill-item learning">AI Integration</span>
-                      <span className="skill-item learning">TypeScript</span>
-                      <span className="skill-item learning">Next.js</span>
-                      <span className="skill-item learning">Python</span>
-                    </div>
-                  </div>
+                  {[
+                    {
+                      title: "Frontend Development",
+                      skills: ["React.js", "JavaScript (ES6+)", "HTML5 & CSS3", "Responsive Design", "Framer Motion"]
+                    },
+                    {
+                      title: "Backend & Databases",
+                      skills: ["Node.js", "Express.js", "MongoDB", "RESTful APIs", "Git & GitHub"]
+                    },
+                    {
+                      title: "Digital Marketing",
+                      skills: ["SEO Optimization", "Content Strategy", "Keyword Research", "Social Media Campaigns"]
+                    },
+                    {
+                      title: "Currently Learning",
+                      skills: ["AI Integration", "TypeScript", "Next.js", "Python"],
+                      learning: true
+                    }
+                  ].map((category, index) => (
+                    <motion.div 
+                      key={index}
+                      className="expertise-category"
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      <h4>{category.title}</h4>
+                      <div className="skill-items">
+                        {category.skills.map((skill, skillIndex) => (
+                          <motion.span 
+                            key={skillIndex}
+                            className={`skill-item ${category.learning ? 'learning' : ''}`}
+                            whileHover={{ scale: 1.1 }}
+                            transition={{ type: "spring", stiffness: 400 }}
+                          >
+                            {skill}
+                          </motion.span>
+                        ))}
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="about-section-item">
+              <motion.div 
+                className="about-section-item"
+                variants={itemVariants}
+                whileHover={{ y: -3 }}
+              >
                 <h3>Language Skills</h3>
                 <div className="languages-grid">
-                  <div className="language-item">
-                    <span className="language-flag">🇺🇸</span>
-                    <div className="language-info">
-                      <span className="language-name">English</span>
-                      <span className="language-level">Professional Working Proficiency</span>
-                    </div>
-                    <div className="language-proficiency">
-                      <div className="proficiency-bar">
-                        <div className="proficiency-level english"></div>
+                  {[
+                    { flag: "🇺🇸", name: "English", level: "Professional Working Proficiency", proficiency: "english" },
+                    { flag: "🇪🇹", name: "Amharic", level: "Native Speaker", proficiency: "amharic" },
+                    { flag: "🇪🇹", name: "Tigrigna", level: "Native Speaker", proficiency: "tigrigna" }
+                  ].map((language, index) => (
+                    <motion.div 
+                      key={index}
+                      className="language-item"
+                      whileHover={{ x: 5 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <span className="language-flag">{language.flag}</span>
+                      <div className="language-info">
+                        <span className="language-name">{language.name}</span>
+                        <span className="language-level">{language.level}</span>
                       </div>
-                    </div>
-                  </div>
-                  <div className="language-item">
-                    <span className="language-flag">🇪🇹</span>
-                    <div className="language-info">
-                      <span className="language-name">Amharic</span>
-                      <span className="language-level">Native Speaker</span>
-                    </div>
-                    <div className="language-proficiency">
-                      <div className="proficiency-bar">
-                        <div className="proficiency-level amharic"></div>
+                      <div className="language-proficiency">
+                        <div className="proficiency-bar">
+                          <motion.div 
+                            className={`proficiency-level ${language.proficiency}`}
+                            initial={{ width: 0 }}
+                            whileInView={{ width: "100%" }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1, delay: index * 0.2 }}
+                          />
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className="language-item">
-                    <span className="language-flag">🇪🇹</span>
-                    <div className="language-info">
-                      <span className="language-name">Tigrigna</span>
-                      <span className="language-level">Native Speaker</span>
-                    </div>
-                    <div className="language-proficiency">
-                      <div className="proficiency-bar">
-                        <div className="proficiency-level tigrigna"></div>
-                      </div>
-                    </div>
-                  </div>
+                    </motion.div>
+                  ))}
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="about-section-item">
+              <motion.div 
+                className="about-section-item"
+                variants={itemVariants}
+                whileHover={{ y: -3 }}
+              >
                 <h3>My Approach</h3>
                 <div className="skills-grid">
-                  <div className="soft-skill-item">
-                    <span className="soft-skill-icon">💡</span>
-                    <span className="soft-skill-text">Problem-First Mindset</span>
-                  </div>
-                  <div className="soft-skill-item">
-                    <span className="soft-skill-icon">🚀</span>
-                    <span className="soft-skill-text">Quick Learner</span>
-                  </div>
-                  <div className="soft-skill-item">
-                    <span className="soft-skill-icon">🔍</span>
-                    <span className="soft-skill-text">Attention to Detail</span>
-                  </div>
-                  <div className="soft-skill-item">
-                    <span className="soft-skill-icon">🤝</span>
-                    <span className="soft-skill-text">Team Player</span>
-                  </div>
-                  <div className="soft-skill-item">
-                    <span className="soft-skill-icon">🎯</span>
-                    <span className="soft-skill-text">Goal-Oriented</span>
-                  </div>
-                  <div className="soft-skill-item">
-                    <span className="soft-skill-icon">💪</span>
-                    <span className="soft-skill-text">Persistent</span>
-                  </div>
+                  {[
+                    { icon: "💡", text: "Problem-First Mindset" },
+                    { icon: "🚀", text: "Quick Learner" },
+                    { icon: "🔍", text: "Attention to Detail" },
+                    { icon: "🤝", text: "Team Player" },
+                    { icon: "🎯", text: "Goal-Oriented" },
+                    { icon: "💪", text: "Persistent" }
+                  ].map((skill, index) => (
+                    <motion.div 
+                      key={index}
+                      className="soft-skill-item"
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      transition={{ type: "spring", stiffness: 400 }}
+                    >
+                      <span className="soft-skill-icon">{skill.icon}</span>
+                      <span className="soft-skill-text">{skill.text}</span>
+                    </motion.div>
+                  ))}
                 </div>
-                <p className="values-text">
+                <motion.p 
+                  className="values-text"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                >
                   I believe in <strong>understanding the problem deeply</strong> before writing code, 
                   <strong> continuous learning</strong> as technology evolves, and 
                   <strong> collaboration</strong> as the key to building amazing things.
-                </p>
-              </div>
-            </div>
+                </motion.p>
+              </motion.div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

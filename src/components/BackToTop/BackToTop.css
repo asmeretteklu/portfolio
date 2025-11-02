@@ -1,7 +1,7 @@
 .back-to-top {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 20px;
+  right: 20px;
   background: var(--gradient-primary);
   color: white;
   width: 50px;
@@ -13,8 +13,37 @@
   z-index: 1000;
   box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Prevent animation conflicts */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .back-to-top:hover {
   box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+  transform: translateY(-2px) translateZ(0);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 15px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top {
+    transition: none;
+  }
+  
+  .back-to-top:hover {
+    transform: none;
+  }
 }

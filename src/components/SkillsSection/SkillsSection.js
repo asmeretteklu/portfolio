@@ -5,71 +5,150 @@ import './SkillsSection.css';
 const SkillsSection = () => {
   const skillCategories = [
     {
-      title: "🖥️ Frontend Development",
-      color: "#667eea",
+      title: "Frontend Development",
       icon: "💻",
+      color: "#667eea",
       skills: [
-        { name: "HTML5 & CSS3", level: 95, icon: "🎨", description: "Semantic HTML, CSS Grid, Flexbox, Animations" },
-        { name: "JavaScript (ES6+)", level: 90, icon: "🟨", description: "Modern JS, Async/Await, DOM Manipulation" },
-        { name: "React.js", level: 88, icon: "⚛️", description: "Hooks, Context API, Component Lifecycle" },
-        { name: "Responsive Design", level: 92, icon: "📱", description: "Mobile-first, Cross-browser compatibility" },
-        { name: "Tailwind CSS", level: 85, icon: "💨", description: "Utility-first CSS, Custom configurations" }
+        {
+          name: "React.js",
+          level: 85,
+          description: "Building dynamic user interfaces with hooks and modern patterns",
+          icon: "⚛️"
+        },
+        {
+          name: "JavaScript (ES6+)",
+          level: 90,
+          description: "Modern JavaScript with async/await, destructuring, and modules",
+          icon: "🟨"
+        },
+        {
+          name: "HTML5 & CSS3",
+          level: 95,
+          description: "Semantic markup, responsive design, and CSS animations",
+          icon: "🎨"
+        },
+        {
+          name: "Framer Motion",
+          level: 80,
+          description: "Creating smooth animations and interactive experiences",
+          icon: "✨"
+        }
       ]
     },
     {
-      title: "⚙️ Backend Development", 
-      color: "#764ba2",
-      icon: "🔧",
+      title: "Backend & Databases",
+      icon: "⚡",
+      color: "#4facfe",
       skills: [
-        { name: "Node.js", level: 85, icon: "🟢", description: "Express.js, RESTful APIs, Middleware" },
-        { name: "Java", level: 85, icon: "☕", description: "OOP, Data Structures, Spring Framework" },
-        { name: "Python", level: 80, icon: "🐍", description: "Scripting, Automation, Backend logic" },
-        { name: "Spring Boot", level: 75, icon: "🌱", description: "Dependency Injection, MVC Pattern" }
+        {
+          name: "Node.js",
+          level: 75,
+          description: "Server-side JavaScript with Express.js framework",
+          icon: "🟢"
+        },
+        {
+          name: "MongoDB",
+          level: 70,
+          description: "NoSQL database design and CRUD operations",
+          icon: "🍃"
+        },
+        {
+          name: "RESTful APIs",
+          level: 80,
+          description: "Designing and consuming REST APIs",
+          icon: "🔗"
+        },
+        {
+          name: "Git & GitHub",
+          level: 85,
+          description: "Version control and collaborative development",
+          icon: "📚"
+        }
       ]
     },
     {
-      title: "🗄️ Databases & Tools",
-      color: "#4facfe", 
-      icon: "💾",
-      skills: [
-        { name: "MongoDB", level: 80, icon: "🍃", description: "NoSQL, Mongoose ODM, Aggregation" },
-        { name: "MySQL", level: 75, icon: "🐬", description: "SQL Queries, Database Design" },
-        { name: "Git & GitHub", level: 90, icon: "📚", description: "Version control, Collaboration" },
-        { name: "RESTful APIs", level: 85, icon: "🔗", description: "API Design, HTTP methods, JSON" }
-      ]
-    },
-    {
-      title: "🎯 Digital Marketing & AI",
+      title: "Digital Marketing",
+      icon: "📈",
       color: "#f093fb",
-      icon: "🚀",
       skills: [
-        { name: "SEO Optimization", level: 85, icon: "🔍", description: "Search Engine Optimization, Keyword Research" },
-        { name: "Content Strategy", level: 80, icon: "📊", description: "Content Planning, User Engagement" },
-        { name: "AI Integration", level: 75, icon: "🤖", description: "OpenAI API, AI-powered features" },
-        { name: "Digital Analytics", level: 80, icon: "📈", description: "Performance Tracking, User Behavior" }
+        {
+          name: "SEO Optimization",
+          level: 75,
+          description: "Search engine optimization and keyword strategy",
+          icon: "🔍"
+        },
+        {
+          name: "Content Strategy",
+          level: 80,
+          description: "Creating engaging content that converts",
+          icon: "✍️"
+        },
+        {
+          name: "Social Media Marketing",
+          level: 70,
+          description: "Building brand presence across platforms",
+          icon: "📱"
+        },
+        {
+          name: "Google Analytics",
+          level: 65,
+          description: "Tracking and analyzing user behavior",
+          icon: "📊"
+        }
+      ]
+    },
+    {
+      title: "Tools & Technologies",
+      icon: "🛠️",
+      color: "#ffd89b",
+      skills: [
+        {
+          name: "VS Code",
+          level: 95,
+          description: "Advanced code editing with extensions and debugging",
+          icon: "🔧"
+        },
+        {
+          name: "Figma",
+          level: 70,
+          description: "UI/UX design and prototyping",
+          icon: "🎯"
+        },
+        {
+          name: "Postman",
+          level: 80,
+          description: "API testing and documentation",
+          icon: "📬"
+        },
+        {
+          name: "Netlify/Vercel",
+          level: 85,
+          description: "Modern deployment and hosting platforms",
+          icon: "☁️"
+        }
       ]
     }
   ];
 
   const softSkills = [
-    { skill: "Problem Solving", icon: "🧩", level: 95 },
-    { skill: "Team Collaboration", icon: "🤝", level: 90 },
-    { skill: "Communication", icon: "🗣️", level: 88 },
-    { skill: "Adaptability", icon: "🔄", level: 92 },
-    { skill: "Quick Learning", icon: "⚡", level: 94 },
-    { skill: "Creative Thinking", icon: "💡", level: 87 },
-    { skill: "Time Management", icon: "⏰", level: 89 },
-    { skill: "Attention to Detail", icon: "🔍", level: 93 }
+    { skill: "Problem Solving", level: 90, icon: "💡" },
+    { skill: "Communication", level: 85, icon: "🗣️" },
+    { skill: "Team Collaboration", level: 88, icon: "🤝" },
+    { skill: "Adaptability", level: 92, icon: "🔄" },
+    { skill: "Time Management", level: 80, icon: "⏰" },
+    { skill: "Creativity", level: 85, icon: "🎨" },
+    { skill: "Attention to Detail", level: 90, icon: "🔍" },
+    { skill: "Continuous Learning", level: 95, icon: "📚" }
   ];
 
   const learningGoals = [
-    { skill: "TypeScript", progress: 60, target: "Advanced" },
-    { skill: "Next.js", progress: 50, target: "Production Ready" },
-    { skill: "AWS/Azure", progress: 40, target: "Cloud Certified" },
-    { skill: "Machine Learning", progress: 35, target: "AI Specialist" }
+    { skill: "TypeScript", target: "Advanced", progress: 60 },
+    { skill: "Next.js", target: "Production Ready", progress: 50 },
+    { skill: "Python", target: "Data Science", progress: 40 },
+    { skill: "AI Integration", target: "Practical Projects", progress: 30 }
   ];
 
-  // Animation variants
+  // Animation variants for container
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -98,7 +177,8 @@ const SkillsSection = () => {
         <motion.div 
           className="skills-header"
           initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+         viewport={{ once: true, margin: "-100px", threshold: 0.1 }}
           transition={{ duration: 0.8 }}
         >
           <h1>My <span className="gradient-text">Technical Skills</span></h1>
@@ -112,7 +192,8 @@ const SkillsSection = () => {
           className="skills-grid"
           variants={containerVariants}
           initial="hidden"
-          animate="visible"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
         >
           {skillCategories.map((category, categoryIndex) => (
             <motion.div
@@ -153,7 +234,8 @@ const SkillsSection = () => {
                       <motion.div
                         className="skill-progress"
                         initial={{ width: 0 }}
-                        animate={{ width: `${skill.level}%` }}
+                        whileInView={{ width: `${skill.level}%` }}
+                        viewport={{ once: true }}
                         transition={{ 
                           duration: 1.5, 
                           delay: categoryIndex * 0.2 + skillIndex * 0.1,
@@ -175,7 +257,8 @@ const SkillsSection = () => {
           <motion.div 
             className="soft-skills-section"
             initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <div className="section-header">
@@ -188,7 +271,8 @@ const SkillsSection = () => {
                   key={item.skill}
                   className="soft-skill-item"
                   initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
                   whileHover={{ 
                     scale: 1.05,
@@ -200,10 +284,16 @@ const SkillsSection = () => {
                   <div className="soft-skill-content">
                     <span className="soft-skill-name">{item.skill}</span>
                     <div className="soft-skill-bar">
-                      <div 
-                        className="soft-skill-progress" 
-                        style={{ width: `${item.level}%` }}
-                      ></div>
+                      <motion.div 
+                        className="soft-skill-progress"
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${item.level}%` }}
+                        viewport={{ once: true }}
+                        transition={{ 
+                          duration: 1.5, 
+                          delay: 0.8 + index * 0.15 
+                        }}
+                      />
                     </div>
                   </div>
                 </motion.div>
@@ -215,7 +305,8 @@ const SkillsSection = () => {
           <motion.div 
             className="learning-goals-section"
             initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             <div className="section-header">
@@ -228,7 +319,8 @@ const SkillsSection = () => {
                   key={goal.skill}
                   className="learning-goal"
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.8 + index * 0.15 }}
                 >
                   <div className="goal-header">
@@ -240,8 +332,12 @@ const SkillsSection = () => {
                       <motion.div 
                         className="progress-fill"
                         initial={{ width: 0 }}
-                        animate={{ width: `${goal.progress}%` }}
-                        transition={{ duration: 1.5, delay: 1 + index * 0.2 }}
+                        whileInView={{ width: `${goal.progress}%` }}
+                        viewport={{ once: true }}
+                        transition={{ 
+                          duration: 1.5, 
+                          delay: 1 + index * 0.2 
+                        }}
                       />
                     </div>
                     <span className="progress-text">{goal.progress}%</span>
@@ -256,7 +352,8 @@ const SkillsSection = () => {
         <motion.div 
           className="skills-summary"
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
           <div className="summary-content">

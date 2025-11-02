@@ -3,8 +3,8 @@
   bottom: 20px;
   left: 20px;
   background: var(--bg-card);
-  backdrop-filter: blur(10px);
-  padding: 10px 15px;
+  backdrop-filter: blur(20px);
+  padding: 12px 16px;
   border-radius: 25px;
   border: 1px solid var(--border-color);
   font-size: 0.9rem;
@@ -13,13 +13,123 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.visitor-counter:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
 }
 
 .counter-icon {
   font-size: 1.1rem;
+  animation: pulse 2s infinite;
 }
 
 .counter-number {
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.counter-label {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.counter-close {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.counter-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+/* Minimized state */
+.visitor-counter-minimized {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  padding: 10px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.visitor-counter-minimized:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.visitor-counter-minimized .counter-icon {
+  animation: pulse 2s infinite;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .visitor-counter {
+    bottom: 15px;
+    left: 15px;
+    padding: 10px 14px;
+    font-size: 0.8rem;
+  }
+  
+  .counter-number {
+    font-size: 0.9rem;
+  }
+  
+  .visitor-counter-minimized {
+    bottom: 15px;
+    left: 15px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .visitor-counter {
+    bottom: 10px;
+    left: 10px;
+    padding: 8px 12px;
+  }
+  
+  .counter-label {
+    display: none; /* Hide label on very small screens */
+  }
 }

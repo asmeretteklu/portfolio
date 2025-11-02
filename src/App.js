@@ -5,7 +5,6 @@ import './App.css';
 // Import Components
 import Header from './components/Header/Header';
 import ParticleBackground from './components/ParticleBackground/ParticleBackground';
-import ThemeToggle from './components/ThemeToggle/ThemeToggle';
 import AIAssistant from './components/AIAssistant/AIAssistant';
 import Footer from './components/Footer/Footer';
 
@@ -25,6 +24,7 @@ import GitHubActivity from './components/GitHubActivity/GitHubActivity';
 import CodingStats from './components/CodingStats/CodingStats';
 import Testimonials from './components/Testimonials/Testimonials';
 import BackToTop from './components/BackToTop/BackToTop';
+import ThemeToggle from './components/ThemeToggle/ThemeToggle';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -48,9 +48,8 @@ function App() {
 
   // Initialize theme and handle loading
   useEffect(() => {
-    // Set up theme
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', savedTheme);
+    // Set up theme - default to dark
+    document.documentElement.setAttribute('data-theme', 'dark');
     
     // Add smooth transition class after page loads
     const timer = setTimeout(() => {
@@ -97,9 +96,6 @@ function App() {
       {/* NEW: Visitor Counter */}
       <VisitorCounter />
       
-      {/* Theme Toggle */}
-      <ThemeToggle />
-      
       {/* Header */}
       <Header />
       
@@ -109,7 +105,7 @@ function App() {
         <AboutSection />
         <ProjectsSection />
         <SkillsSection />
-        
+        {/* <ThemeToggle /> */}
         {/* NEW: Coding Stats */}
         <CodingStats />
         

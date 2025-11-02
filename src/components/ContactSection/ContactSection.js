@@ -4,55 +4,10 @@ import emailjs from 'emailjs-com';
 import './ContactSection.css';
 
 const ContactSection = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: ""
-  });
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
   const formRef = useRef();
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus(null);
-
-    // Use environment variables (safe for deployment)
-    const serviceID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
-    const templateID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
-    const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
-
-    try {
-      await emailjs.sendForm(serviceID, templateID, formRef.current, publicKey);
-      
-      setSubmitStatus('success');
-      setFormData({
-        name: "",
-        email: "", 
-        subject: "",
-        message: ""
-      });
-      
-      // Reset status after 5 seconds
-      setTimeout(() => setSubmitStatus(null), 5000);
-    } catch (error) {
-      console.error('Email sending failed:', error);
-      setSubmitStatus('error');
-      setTimeout(() => setSubmitStatus(null), 5000);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   // Animation variants
   const containerVariants = {
@@ -77,20 +32,65 @@ const ContactSection = () => {
     }
   };
 
+  const getEmailJSConfig = () => {
+    return {
+      serviceID: process.env.REACT_APP_EMAILJS_SERVICE_ID || 'your_service_id_here',
+      templateID: process.env.REACT_APP_EMAILJS_TEMPLATE_ID || 'your_template_id_here',
+      publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY || 'your_public_key_here'
+    };
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+    setErrorMessage('');
+
+    const { serviceID, templateID, publicKey } = getEmailJSConfig();
+
+    if (!serviceID || !templateID || !publicKey) {
+      setSubmitStatus('error');
+      setErrorMessage('Email service not configured properly. Please contact me directly at asmeretteklu03@gmail.com');
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      const result = await emailjs.sendForm(serviceID, templateID, formRef.current, publicKey);
+      setSubmitStatus('success');
+      formRef.current.reset();
+      setTimeout(() => setSubmitStatus(null), 5000);
+    } catch (error) {
+      let userMessage = 'Failed to send message. ';
+      if (error.text) {
+        userMessage += error.text;
+      } else if (error.status === 0) {
+        userMessage += 'Network error. Please check your connection.';
+      } else {
+        userMessage += 'Please try again or email me directly at asmeretteklu03@gmail.com';
+      }
+      setSubmitStatus('error');
+      setErrorMessage(userMessage);
+      setTimeout(() => setSubmitStatus(null), 5000);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section id="contact" className="contact-section">
       <div className="contact-container">
         <motion.div 
           className="contact-header"
           initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+         viewport={{ once: true, margin: "-100px", threshold: 0.1 }}
           transition={{ duration: 0.8 }}
         >
           <h1>Let's <span className="gradient-text">Connect</span> 🚀</h1>
           <p>Ready to bring your ideas to life? Let's create something amazing together!</p>
         </motion.div>
 
-        {/* Success/Error Messages */}
         {submitStatus === 'success' && (
           <motion.div 
             className="alert alert-success"
@@ -107,7 +107,7 @@ const ContactSection = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            ❌ Failed to send message. Please try again or email me directly.
+            ❌ {errorMessage || 'Failed to send message. Please try again or email me directly.'}
           </motion.div>
         )}
 
@@ -115,9 +115,9 @@ const ContactSection = () => {
           className="contact-content"
           variants={containerVariants}
           initial="hidden"
-          animate="visible"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
         >
-          {/* LEFT SIDE - Contact Info */}
           <motion.div 
             className="contact-info"
             variants={itemVariants}
@@ -235,7 +235,7 @@ const ContactSection = () => {
                 </motion.a>
                 
                 <motion.a 
-                  href="https://github.com/asmeret"
+                  href="https://github.com/asmeretteklu"
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="method"
@@ -249,7 +249,6 @@ const ContactSection = () => {
             </div>
           </motion.div>
 
-          {/* RIGHT SIDE - Contact Form */}
           <motion.div 
             className="contact-form-container"
             variants={itemVariants}
@@ -269,9 +268,7 @@ const ContactSection = () => {
                   <motion.input
                     type="text"
                     id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
+                    name="from_name"
                     required
                     placeholder="Enter your full name"
                     whileFocus={{ scale: 1.02 }}
@@ -283,9 +280,7 @@ const ContactSection = () => {
                   <motion.input
                     type="email"
                     id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
+                    name="from_email"
                     required
                     placeholder="your.email@example.com"
                     whileFocus={{ scale: 1.02 }}
@@ -298,8 +293,6 @@ const ContactSection = () => {
                 <motion.select
                   id="subject"
                   name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
                   required
                   whileFocus={{ scale: 1.02 }}
                 >
@@ -318,8 +311,6 @@ const ContactSection = () => {
                 <motion.textarea
                   id="message"
                   name="message"
-                  value={formData.message}
-                  onChange={handleChange}
                   required
                   rows="6"
                   placeholder="Tell me about your project, idea, or opportunity. I'm excited to learn more and see how we can work together to create something amazing! 🚀"
@@ -333,15 +324,20 @@ const ContactSection = () => {
                 </p>
                 <motion.button 
                   type="submit"
-                  className={`submit-btn ${isSubmitting ? 'submitting' : ''}`}
-                  disabled={isSubmitting}
-                  whileHover={{ scale: isSubmitting ? 1 : 1.05 }}
-                  whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
+                  className={`submit-btn ${isSubmitting ? 'submitting' : ''} ${submitStatus === 'success' ? 'sent' : ''}`}
+                  disabled={isSubmitting || submitStatus === 'success'}
+                  whileHover={{ scale: (isSubmitting || submitStatus === 'success') ? 1 : 1.05 }}
+                  whileTap={{ scale: (isSubmitting || submitStatus === 'success') ? 1 : 0.95 }}
                 >
                   {isSubmitting ? (
                     <>
                       <div className="loading-spinner"></div>
                       Sending...
+                    </>
+                  ) : submitStatus === 'success' ? (
+                    <>
+                      <span>Sent! </span>
+                      <span className="success-check">✅</span>
                     </>
                   ) : (
                     "Send Message 🚀"

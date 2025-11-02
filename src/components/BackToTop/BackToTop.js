@@ -19,9 +19,10 @@ const BackToTop = () => {
   }, []);
 
   const scrollToTop = () => {
+    // FIX: Use instant scroll instead of smooth to prevent conflicts
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: 'instant' // Changed from 'smooth' to 'instant'
     });
   };
 
@@ -33,6 +34,7 @@ const BackToTop = () => {
       animate={{ scale: isVisible ? 1 : 0, opacity: isVisible ? 1 : 0 }}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
+      transition={{ duration: 0.2 }} // Added faster transition
     >
       ↑
     </motion.button>

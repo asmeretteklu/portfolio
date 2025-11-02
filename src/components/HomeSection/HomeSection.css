@@ -9,7 +9,7 @@
   overflow: hidden;
 }
 
-/* Animated Background Elements */
+/* Animated Background Elements - Fixed blinking */
 .background-elements {
   position: absolute;
   top: 0;
@@ -26,6 +26,7 @@
   filter: blur(40px);
   opacity: 0.1;
   animation: shape-float 20s ease-in-out infinite;
+  will-change: transform; /* Prevent blinking */
 }
 
 .shape-1 {
@@ -99,6 +100,7 @@
 
 .waving-hand {
   animation: wave 2s ease-in-out infinite;
+  display: inline-block; /* Fix mobile alignment */
 }
 
 @keyframes wave {
@@ -242,6 +244,7 @@
   position: relative;
   overflow: hidden;
   text-decoration: none;
+  -webkit-tap-highlight-color: transparent; /* Remove mobile tap highlight */
 }
 
 .btn::before {
@@ -356,6 +359,8 @@
   padding: 4px;
   box-shadow: var(--shadow-xl);
   transition: all var(--transition-normal);
+  backface-visibility: hidden; /* Prevent flickering */
+  transform: translateZ(0); /* Hardware acceleration */
 }
 
 .profile-photo-img {
@@ -365,6 +370,7 @@
   object-fit: cover;
   border: 4px solid var(--bg-card);
   transition: all var(--transition-normal);
+  backface-visibility: hidden;
 }
 
 .photo-skeleton {
@@ -444,6 +450,7 @@
   box-shadow: var(--shadow-md);
   border: 1px solid var(--border-color);
   animation: float 4s ease-in-out infinite;
+  backface-visibility: hidden;
 }
 
 /* Scroll Indicator */
@@ -466,153 +473,15 @@
   color: var(--accent-color);
 }
 
-/* Enhanced Mobile Responsiveness */
+/* ===== MOBILE RESPONSIVE FIXES ===== */
+
+/* Tablet and Mobile */
 @media (max-width: 968px) {
   .home-container {
     grid-template-columns: 1fr;
     gap: 2rem;
     text-align: center;
-  }
-
-  .home-content {
-    align-items: center;
-  }
-
-  .description {
-    text-align: center;
-  }
-
-  .marketing-highlight {
-    max-width: 100%;
-    text-align: left;
-  }
-
-  .stats {
-    justify-content: center;
-    gap: 1.5rem;
-  }
-
-  .action-buttons {
-    justify-content: center;
-  }
-
-  .floating-tech-icon {
-    display: none;
-  }
-}
-
-@media (max-width: 768px) {
-  .home-section {
-    padding: 80px 0.5rem 1rem;
-    min-height: 100svh;
-  }
-
-  .action-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .btn {
-    width: 100%;
-    max-width: 280px;
-  }
-
-  .stats {
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .stat-item {
-    flex: 1;
-    min-width: 100px;
-  }
-
-  .marketing-highlight {
-    flex-direction: column;
-    text-align: center;
-    padding: 1.2rem;
-  }
-
-  .floating-shape {
-    display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .home-section {
-    padding: 70px 0.5rem 1rem;
-  }
-
-  .main-heading {
-    font-size: 2rem;
-  }
-
-  .typewriter-container {
-    font-size: 1.1rem;
-    min-height: 2rem;
-  }
-
-  .description {
-    font-size: 1rem;
-  }
-
-  .profile-photo {
-    width: 250px;
-    height: 300px;
-  }
-
-  .availability {
-    font-size: 0.8rem;
-    padding: 0.6rem 1.2rem;
-  }
-
-  .stats {
-    flex-direction: column;
-  }
-
-  .scroll-indicator {
-    bottom: 1rem;
-  }
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  .waving-hand,
-  .highlight::after,
-  .floating-shape,
-  .floating-tech-icon,
-  .scroll-arrow,
-  .status-dot {
-    animation: none;
-  }
-  
-  .btn::before {
-    display: none;
-  }
-}
-/* Enhanced Home Section Mobile Responsiveness */
-/* Add these to your existing HomeSection.css */
-
-/* Tablet Landscape and Smaller */
-@media (max-width: 1024px) {
-  .home-container {
-    gap: 2rem;
     padding: 0 1rem;
-  }
-  
-  .profile-photo {
-    width: clamp(250px, 28vw, 350px);
-    height: clamp(300px, 33vw, 420px);
-  }
-}
-
-/* Tablet Portrait */
-@media (max-width: 968px) {
-  .home-container {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    text-align: center;
-    padding: 0 1.5rem;
   }
 
   .home-content {
@@ -643,12 +512,10 @@
     justify-content: center;
   }
 
-  /* Reduce floating elements on mobile */
   .floating-tech-icon {
     display: none;
   }
   
-  /* Adjust photo size for tablet */
   .profile-photo {
     width: 280px;
     height: 340px;
@@ -659,12 +526,11 @@
 @media (max-width: 768px) {
   .home-section {
     padding: 80px 1rem 2rem;
-    min-height: 100svh; /* Use small viewport height for mobile */
+    min-height: 100svh;
   }
 
   .home-container {
     gap: 2.5rem;
-    padding: 0;
   }
 
   .intro-text {
@@ -719,12 +585,10 @@
     font-size: 1.5rem;
   }
 
-  /* Hide background shapes on smaller screens */
   .floating-shape {
     display: none;
   }
   
-  /* Adjust photo for mobile */
   .profile-photo {
     width: 240px;
     height: 290px;
@@ -927,14 +791,6 @@
   }
 }
 
-/* High DPI Screens */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .profile-photo-img {
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-  }
-}
-
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
   .home-section * {
@@ -964,4 +820,31 @@
     padding-right: max(1rem, env(safe-area-inset-right));
     padding-bottom: max(1rem, env(safe-area-inset-bottom));
   }
+}
+
+/* Prevent FOUC (Flash of Unstyled Content) */
+.home-section {
+  visibility: visible;
+}
+
+/* Hardware acceleration for smoother animations */
+.profile-photo,
+.profile-photo-img,
+.floating-tech-icon,
+.btn {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+.home-section {
+  color: var(--text-primary);
+  background: transparent;
+}
+
+.home-section h1 {
+  color: var(--text-primary);
+}
+
+.home-section p {
+  color: var(--text-secondary);
 }

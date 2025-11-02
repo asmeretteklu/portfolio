@@ -1,7 +1,22 @@
-/* Skills Section - Enhanced with Theme Support */
+/* Skills Section - Fixed CSS Variables */
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1a1a;
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --bg-hover: rgba(255, 255, 255, 0.08);
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --accent-color: #667eea;
+  --primary-color: #667eea;
+  --secondary-color: #764ba2;
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-bg: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+}
+
 .skills-section {
   min-height: 100vh;
-  padding: 80px 2rem 2rem; /* Reduced top padding */
+  padding: 80px 2rem 2rem;
   position: relative;
   overflow: hidden;
   background: var(--gradient-bg);
@@ -42,7 +57,7 @@
 
 .skills-header {
   text-align: center;
-  margin-bottom: 3rem; /* Reduced margin */
+  margin-bottom: 3rem;
 }
 
 .skills-header h1 {
@@ -71,8 +86,8 @@
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-  gap: 2rem; /* Reduced gap */
-  margin-bottom: 3rem; /* Reduced margin */
+  gap: 2rem;
+  margin-bottom: 3rem;
 }
 
 /* Enhanced Skill Category */
@@ -81,7 +96,7 @@
   backdrop-filter: blur(20px);
   border: 1px solid var(--border-color);
   border-radius: 25px;
-  padding: 2rem; /* Reduced padding */
+  padding: 2rem;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
@@ -112,7 +127,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1.5rem; /* Reduced margin */
+  margin-bottom: 1.5rem;
 }
 
 .category-icon {
@@ -138,7 +153,7 @@
 .skills-list {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem; /* Reduced gap */
+  gap: 1.2rem;
 }
 
 .skill-item {
@@ -146,14 +161,14 @@
 }
 
 .skill-info {
-  margin-bottom: 0.6rem; /* Reduced margin */
+  margin-bottom: 0.6rem;
 }
 
 .skill-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.4rem; /* Reduced margin */
+  margin-bottom: 0.4rem;
 }
 
 .skill-name {
@@ -215,8 +230,8 @@
 .skills-bottom-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem; /* Reduced gap */
-  margin-bottom: 3rem; /* Reduced margin */
+  gap: 2rem;
+  margin-bottom: 3rem;
 }
 
 /* Enhanced Soft Skills */
@@ -226,11 +241,11 @@
   backdrop-filter: blur(20px);
   border: 1px solid var(--border-color);
   border-radius: 25px;
-  padding: 2rem; /* Reduced padding */
+  padding: 2rem;
 }
 
 .section-header {
-  margin-bottom: 1.5rem; /* Reduced margin */
+  margin-bottom: 1.5rem;
 }
 
 .section-header h2 {
@@ -251,14 +266,14 @@
 .soft-skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 0.8rem; /* Reduced gap */
+  gap: 0.8rem;
 }
 
 .soft-skill-item {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem; /* Reduced padding */
+  padding: 1rem;
   background: var(--bg-hover);
   border: 1px solid var(--border-color);
   border-radius: 15px;
@@ -272,6 +287,14 @@
   transform: scale(1.05);
 }
 
+.soft-skill-item:hover .soft-skill-name {
+  color: white;
+}
+
+.soft-skill-item:hover .soft-skill-progress {
+  background: rgba(255, 255, 255, 0.3);
+}
+
 .soft-skill-icon {
   font-size: 1.5rem;
   flex-shrink: 0;
@@ -281,13 +304,14 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem; /* Reduced gap */
+  gap: 0.4rem;
 }
 
 .soft-skill-name {
   color: var(--text-primary);
   font-weight: 600;
   font-size: 0.9rem;
+  transition: color 0.3s ease;
 }
 
 .soft-skill-bar {
@@ -302,18 +326,18 @@
   height: 100%;
   background: var(--gradient-primary);
   border-radius: 2px;
-  transition: width 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 /* Learning Goals */
 .learning-goals {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem; /* Reduced gap */
+  gap: 1.2rem;
 }
 
 .learning-goal {
-  padding: 1.2rem; /* Reduced padding */
+  padding: 1.2rem;
   background: var(--bg-hover);
   border: 1px solid var(--border-color);
   border-radius: 15px;
@@ -329,7 +353,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.8rem; /* Reduced margin */
+  margin-bottom: 0.8rem;
 }
 
 .goal-skill {
@@ -379,15 +403,15 @@
   backdrop-filter: blur(20px);
   border: 1px solid var(--border-color);
   border-radius: 25px;
-  padding: 2.5rem; /* Reduced padding */
+  padding: 2.5rem;
   text-align: center;
-  margin-bottom: 1rem; /* Added small bottom margin */
+  margin-bottom: 1rem;
 }
 
 .summary-content h3 {
   font-size: 2rem;
   color: var(--text-primary);
-  margin-bottom: 1.2rem; /* Reduced margin */
+  margin-bottom: 1.2rem;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -398,7 +422,7 @@
   color: var(--text-secondary);
   font-size: 1.1rem;
   line-height: 1.6;
-  margin-bottom: 2rem; /* Reduced margin */
+  margin-bottom: 2rem;
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
@@ -412,14 +436,14 @@
 .summary-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1.5rem; /* Reduced gap */
+  gap: 1.5rem;
   max-width: 600px;
   margin: 0 auto;
 }
 
 .stat {
   text-align: center;
-  padding: 1.2rem 1rem; /* Reduced padding */
+  padding: 1.2rem 1rem;
   background: var(--bg-hover);
   border-radius: 15px;
   border: 1px solid var(--border-color);

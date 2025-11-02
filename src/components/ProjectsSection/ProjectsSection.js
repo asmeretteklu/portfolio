@@ -136,58 +136,84 @@ const ProjectsSection = () => {
   return (
     <section id="projects" className="projects-section">
       <div className="projects-container">
+        {/* Header with scroll animations */}
         <motion.div 
           className="projects-header"
           initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+         viewport={{ once: true, margin: "-100px", threshold: 0.1 }}
           transition={{ duration: 0.8 }}
         >
           <h1>My <span className="gradient-text">Projects</span></h1>
-          <p className="projects-subtitle">
+          <motion.p 
+            className="projects-subtitle"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             A collection of my work that showcases practical problem-solving and modern development skills
-          </p>
+          </motion.p>
         </motion.div>
 
-        {/* Project Stats */}
+        {/* Project Stats with scroll animations */}
         <motion.div 
           className="project-stats"
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ delay: 0.3, duration: 0.8 }}
         >
-          <div className="stat-item">
+          <motion.div 
+            className="stat-item"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
             <div className="stat-number">{projectStats.total}</div>
             <div className="stat-label">Total Projects</div>
-          </div>
-          <div className="stat-item">
+          </motion.div>
+          <motion.div 
+            className="stat-item"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
             <div className="stat-number completed">{projectStats.completed}</div>
             <div className="stat-label">Completed</div>
-          </div>
-          <div className="stat-item">
+          </motion.div>
+          <motion.div 
+            className="stat-item"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
             <div className="stat-number in-development">{projectStats.inDevelopment}</div>
             <div className="stat-label">In Development</div>
-          </div>
-          <div className="stat-item">
+          </motion.div>
+          <motion.div 
+            className="stat-item"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
             <div className="stat-number planned">{projectStats.planned}</div>
             <div className="stat-label">Planned</div>
-          </div>
+          </motion.div>
         </motion.div>
 
-        {/* Projects Grid */}
+        {/* Projects Grid with scroll animations */}
         <motion.div 
           className="projects-grid"
           variants={containerVariants}
           initial="hidden"
-          animate="visible"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
         >
-          {projects.map((project) => (
+          {projects.map((project, index) => (
             <motion.div 
               key={project.id}
               className="project-card"
               variants={cardVariants}
               whileHover={{ 
                 y: -8,
-                transition: { duration: 0.3 }
+                transition: { type: "spring", stiffness: 300 }
               }}
             >
               {/* Project Badge */}
@@ -202,7 +228,11 @@ const ProjectsSection = () => {
               </div>
 
               {/* Project Visual */}
-              <div className="project-visual">
+              <motion.div 
+                className="project-visual"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
                 <div className="project-image" style={{ background: project.gradient }}>
                   <div className="project-icon">{project.icon}</div>
                 </div>
@@ -210,7 +240,7 @@ const ProjectsSection = () => {
                   className="project-gradient"
                   style={{ background: project.gradient }}
                 ></div>
-              </div>
+              </motion.div>
 
               {/* Project Content */}
               <div className="project-content">
@@ -224,23 +254,49 @@ const ProjectsSection = () => {
 
                 <p className="project-description">{project.description}</p>
 
-                <div className="project-features">
+                <motion.div 
+                  className="project-features"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                >
                   <h4>✨ Key Features</h4>
                   <div className="features-list">
                     {project.features.map((feature, index) => (
-                      <span key={index} className="feature-tag">{feature}</span>
+                      <motion.span 
+                        key={index} 
+                        className="feature-tag"
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ type: "spring", stiffness: 400 }}
+                      >
+                        {feature}
+                      </motion.span>
                     ))}
                   </div>
-                </div>
+                </motion.div>
 
-                <div className="tech-stack">
+                <motion.div 
+                  className="tech-stack"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                >
                   <h4>🛠️ Technologies</h4>
                   <div className="tech-list">
                     {project.technologies.map((tech, index) => (
-                      <span key={index} className="tech-tag">{tech}</span>
+                      <motion.span 
+                        key={index} 
+                        className="tech-tag"
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ type: "spring", stiffness: 400 }}
+                      >
+                        {tech}
+                      </motion.span>
                     ))}
                   </div>
-                </div>
+                </motion.div>
 
                 <div className="project-actions">
                   <motion.button 
@@ -248,6 +304,7 @@ const ProjectsSection = () => {
                     onClick={() => handleViewDemo(project)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 400 }}
                   >
                     <span>🚀</span>
                     Live Demo
@@ -257,6 +314,7 @@ const ProjectsSection = () => {
                     onClick={() => handleViewCode(project)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 400 }}
                   >
                     <span>📁</span>
                     View Code
@@ -267,25 +325,39 @@ const ProjectsSection = () => {
           ))}
         </motion.div>
 
-        {/* Call to Action */}
+        {/* Call to Action with scroll animations */}
         <motion.div 
           className="projects-cta"
           initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ delay: 0.6, duration: 0.8 }}
         >
           <div className="cta-content">
-            <h3>Ready to Build Something Amazing?</h3>
-            <p>
+            <motion.h3
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              Ready to Build Something Amazing?
+            </motion.h3>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
               I'm passionate about turning ideas into reality. Whether you need a web application, 
               mobile app, or custom software solution, I'd love to help bring your vision to life.
-            </p>
+            </motion.p>
             <div className="cta-buttons">
               <motion.button 
                 className="cta-btn primary"
                 onClick={handleContactMe}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400 }}
               >
                 <span>💬</span>
                 Let's Work Together
@@ -295,6 +367,7 @@ const ProjectsSection = () => {
                 onClick={handleSeeMore}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400 }}
               >
                 <span>⭐</span>
                 See More Projects

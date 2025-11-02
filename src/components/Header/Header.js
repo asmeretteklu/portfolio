@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import './Header.css';
 import AIAssistant from '../AIAssistant/AIAssistant';
 import ThemeToggle from '../ThemeToggle/ThemeToggle';
@@ -10,6 +9,18 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isAIAssistantOpen, setIsAIAssistantOpen] = useState(false);
 
+  // ADDED: Header animation on load
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const header = document.querySelector('.header');
+      if (header) {
+        header.classList.add('loaded');
+      }
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const navItems = [
     { id: 'home', label: 'Home', icon: '🏠' },
     { id: 'about', label: 'About', icon: '👤' },
@@ -18,211 +29,161 @@ const Header = () => {
     { id: 'certificates', label: 'Certificates', icon: '📜' },
     { id: 'contact', label: 'Contact', icon: '📞' }
   ];
-useEffect(() => {
-  const handleScroll = () => {
-    setIsScrolled(window.scrollY > 50);
-    
-    const scrollPosition = window.scrollY + 100;
-    
-    // Define navItems inside useEffect to avoid dependency
-    const items = [
-      { id: 'home' }, { id: 'about' }, { id: 'projects' },
-      { id: 'skills' }, { id: 'certificates' }, { id: 'contact' }
-    ];
-    
-    items.forEach(item => {
-      const element = document.getElementById(item.id);
-      if (element) {
-        const offsetTop = element.offsetTop;
-        const offsetBottom = offsetTop + element.offsetHeight;
-        
-        if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
-          setActiveNav(item.id);
-        }
-      }
-    });
-  };
 
-  window.addEventListener('scroll', handleScroll);
-  return () => window.removeEventListener('scroll', handleScroll);
-}, []); // Empty dependency array
+  // Scroll handler
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Toggle menu
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleNavClick = (navItem) => {
-    setActiveNav(navItem);
+  // Navigation click
+  const handleNavClick = (navId) => {
+    setActiveNav(navId);
     setIsMenuOpen(false);
     
-    const element = document.getElementById(navItem);
+    const element = document.getElementById(navId);
     if (element) {
+      const headerHeight = 80;
+      const elementPosition = element.offsetTop - headerHeight;
+      
       window.scrollTo({
-        top: element.offsetTop - 80, // Account for header height
+        top: elementPosition,
         behavior: 'smooth'
       });
     }
   };
 
+  // AI Assistant click
   const handleAIAssistantClick = () => {
     setIsAIAssistantOpen(true);
+    setIsMenuOpen(false);
   };
 
-  // Mobile menu animation variants
-  const mobileMenuVariants = {
-    closed: {
-      opacity: 0,
-      height: 0,
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut"
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMenuOpen && !event.target.closest('.nav') && !event.target.closest('.mobile-menu')) {
+        setIsMenuOpen(false);
       }
-    },
-    open: {
-      opacity: 1,
-      height: "auto",
-      transition: {
-        duration: 0.4,
-        ease: "easeOut"
-      }
-    }
-  };
+    };
 
-  const navItemVariants = {
-    closed: { opacity: 0, x: -20 },
-    open: { opacity: 1, x: 0 }
-  };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isMenuOpen]);
 
   return (
     <>
       <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
         <nav className="nav">
           {/* Logo */}
-          <motion.div 
-            className="logo"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <a href="#home" onClick={() => handleNavClick('home')}>
+          <div className="logo">
+            <a 
+              href="#home" 
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('home');
+              }}
+            >
               <div className="logo-content">
                 <div className="logo-icon">AT</div>
                 <span className="logo-text">Asmeret Teklu</span>
               </div>
             </a>
-          </motion.div>
+          </div>
 
-          {/* Navigation Links - Desktop */}
+          {/* Desktop Navigation */}
           <div className="nav-links">
-            {navItems.map((item, index) => (
-              <motion.div 
-                key={item.id} 
-                className="nav-item-wrapper"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
+            {navItems.map((item) => (
+              <div key={item.id} className="nav-item-wrapper">
                 <a
                   href={`#${item.id}`}
                   className={`nav-item ${activeNav === item.id ? 'active' : ''}`}
-                  onClick={() => handleNavClick(item.id)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(item.id);
+                  }}
                 >
                   <span className="nav-icon">{item.icon}</span>
                   <span className="nav-label">{item.label}</span>
-                  {activeNav === item.id && (
-                    <motion.div 
-                      className="nav-indicator"
-                      layoutId="navIndicator"
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    />
-                  )}
                 </a>
-              </motion.div>
+              </div>
             ))}
           </div>
 
-          {/* Header Controls - Desktop */}
+          {/* Desktop Controls */}
           <div className="header-controls">
             <ThemeToggle />
             
-            <motion.button 
+            <button 
               className="ai-assistant-btn"
               onClick={handleAIAssistantClick}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
             >
               <span className="ai-icon">🤖</span>
               <span className="ai-text">AI Assistant</span>
-            </motion.button>
+            </button>
           </div>
 
           {/* Mobile Menu Toggle */}
-          <motion.button 
+          <button 
             className="menu-toggle" 
             onClick={toggleMenu}
             aria-label="Toggle menu"
-            whileTap={{ scale: 0.9 }}
           >
             <div className={`hamburger ${isMenuOpen ? 'active' : ''}`}>
               <span></span>
               <span></span>
               <span></span>
             </div>
-          </motion.button>
+          </button>
         </nav>
 
         {/* Mobile Menu */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div 
-              className="mobile-menu"
-              variants={mobileMenuVariants}
-              initial="closed"
-              animate="open"
-              exit="closed"
-            >
-              <div className="mobile-nav-links">
-                {navItems.map((item, index) => (
-                  <motion.a
-                    key={item.id}
-                    href={`#${item.id}`}
-                    className={`mobile-nav-item ${activeNav === item.id ? 'active' : ''}`}
-                    onClick={() => handleNavClick(item.id)}
-                    variants={navItemVariants}
-                    initial="closed"
-                    animate="open"
-                    transition={{ delay: index * 0.1 }}
-                    whileHover={{ x: 10 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <span className="mobile-nav-icon">{item.icon}</span>
-                    {item.label}
-                    {activeNav === item.id && (
-                      <motion.div 
-                        className="mobile-nav-indicator"
-                        layoutId="mobileNavIndicator"
-                      />
-                    )}
-                  </motion.a>
-                ))}
-                
-                {/* Mobile Controls */}
-                <div className="mobile-controls">
-                  <ThemeToggle />
-                  <motion.button 
-                    className="mobile-ai-btn"
-                    onClick={handleAIAssistantClick}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <span className="ai-icon">🤖</span>
-                    AI Assistant
-                  </motion.button>
-                </div>
+        <div className={`mobile-menu ${isMenuOpen ? 'active' : ''}`}>
+          <div className="mobile-nav-links">
+            {navItems.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className={`mobile-nav-item ${activeNav === item.id ? 'active' : ''}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick(item.id);
+                }}
+              >
+                <span className="mobile-nav-icon">{item.icon}</span>
+                {item.label}
+              </a>
+            ))}
+            
+            {/* Mobile Controls - ADDED THEME TOGGLE HERE */}
+            <div className="mobile-controls">
+              {/* ADDED: Theme Toggle in Mobile Menu */}
+              <div className="mobile-theme-toggle">
+                <ThemeToggle />
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              
+              <button 
+                className="mobile-ai-btn"
+                onClick={handleAIAssistantClick}
+              >
+                <span className="ai-icon">🤖</span>
+                AI Assistant
+              </button>
+            </div>
+          </div>
+        </div>
       </header>
 
-      {/* AI Assistant Component */}
+      {/* AI Assistant */}
       <AIAssistant 
         isOpen={isAIAssistantOpen} 
         onClose={() => setIsAIAssistantOpen(false)} 
